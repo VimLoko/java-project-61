@@ -5,7 +5,7 @@ import java.util.Scanner;
 public abstract class Engine {
     protected String rules = "";
     protected String introduceMessage = "Welcome to the Brain Games!\nMay I have your name? ";
-    protected String greetingMessage = "Hello, %s!";
+    protected String greetingMessage = "Hello, %s!\n";
     protected String error = "'%s' is wrong answer ;(. Correct answer was '%s'\nLet's try again, %s!\n";
     protected String correctMessage = "Correct!\n";
     protected String questionMessage = "Question: %s\n";
