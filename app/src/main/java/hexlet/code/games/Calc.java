@@ -3,35 +3,34 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 
 public class Calc extends Engine {
-
-    private String rules = "What is the result of the expression?\n";
     private String[] operations = {"+", "-", "*"};
 
     public Calc() {
+        setRules("What is the result of the expression?\n");
         greeting();
     }
 
+    @Override
     public void play() {
-        System.out.printf(rules);
         int countCorrectAnswer = 0;
 
         while (true) {
-            int firstNum = generateRandomNum(startRange, endRange);
-            int secondNum = generateRandomNum(startRange, endRange);
+            int firstNum = generateRandomNum(getStartRange(), getEndRange());
+            int secondNum = generateRandomNum(getStartRange(), getEndRange());
             String operation = getOperation();
             int result = calculate(firstNum, secondNum, operation);
-            System.out.printf(questionMessage, getStringView(firstNum, secondNum, operation));
-            System.out.printf(answerMessage);
-            int playerAnswer = scanner.nextInt();
+            System.out.printf(getQuestionMessage(), getStringView(firstNum, secondNum, operation));
+            System.out.printf(getAnswerMessage());
+            int playerAnswer = getScanner().nextInt();
             if (playerAnswer == result) {
                 countCorrectAnswer++;
-                System.out.printf(correctMessage);
-                if (countCorrectAnswer == countCorrectAnswers) {
-                    System.out.printf(successMessage, playerName);
+                System.out.printf(getCorrectMessage());
+                if (countCorrectAnswer == getCountCorrectAnswers()) {
+                    System.out.printf(getSuccessMessage(), getPlayerName());
                     break;
                 }
             } else {
-                System.out.printf(error, playerAnswer, result, playerName);
+                System.out.printf(getError(), playerAnswer, result, getPlayerName());
                 break;
             }
         }

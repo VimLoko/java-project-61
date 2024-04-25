@@ -3,35 +3,34 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 
 public class Progression extends Engine {
-    protected String rules = "What number is missing in the progression?\n";
-    private int progressionLength = 10;
+    private final int progressionLength = 10;
 
     public Progression() {
+        setRules("What number is missing in the progression?\n");
         greeting();
     }
     @Override
     protected void play() {
-        System.out.printf(rules);
         int countCorrectAnswer = 0;
 
         while (true) {
-            int startProgression = generateRandomNum(startRange, endRange);
-            int stepProgression = generateRandomNum(startRange, endRange);
+            int startProgression = generateRandomNum(getStartRange(), getEndRange());
+            int stepProgression = generateRandomNum(getStartRange(), getEndRange());
             int[] progression = generateProgression(startProgression, stepProgression);
-            int hiddenElementIndex = generateRandomNum(startRange, progression.length - 1);
+            int hiddenElementIndex = generateRandomNum(getStartRange(), progression.length - 1);
             int hiddenElementValue = progression[hiddenElementIndex];
-            System.out.printf(questionMessage, printProgression(progression, hiddenElementIndex));
-            System.out.printf(answerMessage);
-            int playerAnswer = scanner.nextInt();
+            System.out.printf(getQuestionMessage(), printProgression(progression, hiddenElementIndex));
+            System.out.printf(getAnswerMessage());
+            int playerAnswer = getScanner().nextInt();
             if (playerAnswer == hiddenElementValue) {
                 countCorrectAnswer++;
-                System.out.printf(correctMessage);
-                if (countCorrectAnswer == countCorrectAnswers) {
-                    System.out.printf(successMessage, playerName);
+                System.out.printf(getCorrectMessage());
+                if (countCorrectAnswer == getCountCorrectAnswers()) {
+                    System.out.printf(getSuccessMessage(), getPlayerName());
                     break;
                 }
             } else {
-                System.out.printf(error, playerAnswer, hiddenElementValue, playerName);
+                System.out.printf(getError(), playerAnswer, hiddenElementValue, getPlayerName());
                 break;
             }
         }

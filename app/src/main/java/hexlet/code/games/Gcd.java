@@ -3,33 +3,32 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 
 public class Gcd extends Engine {
-    protected String rules = "Find the greatest common divisor of given numbers.\n";
 
     public Gcd() {
+        setRules("Find the greatest common divisor of given numbers.\n");
         greeting();
     }
 
     @Override
     protected void play() {
-        System.out.printf(rules);
         int countCorrectAnswer = 0;
 
         while (true) {
-            int firstNum = generateRandomNum(startRange, endRange);
-            int secondNum = generateRandomNum(startRange, endRange);
+            int firstNum = generateRandomNum(getStartRange(), getEndRange());
+            int secondNum = generateRandomNum(getStartRange(), getEndRange());
             int result = calculateGcd(firstNum, secondNum);
-            System.out.printf(questionMessage, getStringView(firstNum, secondNum));
-            System.out.printf(answerMessage);
-            int playerAnswer = scanner.nextInt();
+            System.out.printf(getQuestionMessage(), getStringView(firstNum, secondNum));
+            System.out.printf(getAnswerMessage());
+            int playerAnswer = getScanner().nextInt();
             if (playerAnswer == result) {
                 countCorrectAnswer++;
-                System.out.printf(correctMessage);
-                if (countCorrectAnswer == countCorrectAnswers) {
-                    System.out.printf(successMessage, playerName);
+                System.out.printf(getCorrectMessage());
+                if (countCorrectAnswer == getCountCorrectAnswers()) {
+                    System.out.printf(getSuccessMessage(), getPlayerName());
                     break;
                 }
             } else {
-                System.out.printf(error, playerAnswer, result, playerName);
+                System.out.printf(getError(), playerAnswer, result, getPlayerName());
                 break;
             }
         }
