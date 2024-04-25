@@ -22,7 +22,6 @@ public abstract class Engine {
         System.out.printf(introduceMessage);
         playerName = scanner.nextLine();
         System.out.printf(greetingMessage, playerName);
-        System.out.printf(rules);
     }
 
     protected int generateRandomNum(int min, int max) {

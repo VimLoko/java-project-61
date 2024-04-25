@@ -10,6 +10,7 @@ public class Even extends Engine {
     }
 
     public void play() {
+        System.out.printf(rules);
         int countCorrectAnswer = 0;
 
         while (true) {

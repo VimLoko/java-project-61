@@ -11,6 +11,7 @@ public class Gcd extends Engine {
 
     @Override
     protected void play() {
+        System.out.printf(rules);
         int countCorrectAnswer = 0;
 
         while (true) {
