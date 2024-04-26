@@ -3,7 +3,6 @@ package hexlet.code;
 import java.util.Scanner;
 
 public class Engine {
-    private static String rules = "";
     private static String introduceMessage = "Welcome to the Brain Games!\nMay I have your name? ";
     private static String greetingMessage = "Hello, %s!\n";
     private static String error = "'%s' is wrong answer ;(. Correct answer was '%s'\nLet's try again, %s!\n";
@@ -12,9 +11,9 @@ public class Engine {
     private static String answerMessage = "Your answer: ";
     private static String successMessage = "Congratulations, %s!\n";
     private static final Scanner SCANNER = new Scanner(System.in);
-    private static int countCorrectAnswers = 3;
-    private static int startRange = 0;
-    private static int endRange = 20;
+    private static final int COUNT_CORRECT_ANSWERS = 3;
+    private static final int START_RANGE = 0;
+    private static final int END_RANGE = 20;
     private static String playerName;
     private static int playerCountCorrectAnswers = 0;
     private static boolean gameOn = true;
@@ -23,7 +22,6 @@ public class Engine {
         System.out.printf(introduceMessage);
         playerName = SCANNER.nextLine();
         System.out.printf(greetingMessage, playerName);
-        System.out.printf(rules);
     }
 
     public static Scanner getScanner() {
@@ -33,10 +31,6 @@ public class Engine {
     public static int generateRandomNum(int min, int max) {
         int range = (max - min) + 1;
         return (int) (Math.random() * range) + min;
-    }
-
-    public static String getRules() {
-        return rules;
     }
 
     public static String getIntroduceMessage() {
@@ -68,23 +62,19 @@ public class Engine {
     }
 
     public static int getCountCorrectAnswers() {
-        return countCorrectAnswers;
+        return COUNT_CORRECT_ANSWERS;
     }
 
     public static int getStartRange() {
-        return startRange;
+        return START_RANGE;
     }
 
     public static int getEndRange() {
-        return endRange;
+        return END_RANGE;
     }
 
     public static String getPlayerName() {
         return playerName;
-    }
-
-    public static void setRules(String rules) {
-        Engine.rules = rules;
     }
 
     public static void askQuestion(String question) {
@@ -116,7 +106,7 @@ public class Engine {
     private static void winAction() {
         playerCountCorrectAnswers++;
         System.out.printf(getCorrectMessage());
-        if (playerCountCorrectAnswers == countCorrectAnswers) {
+        if (playerCountCorrectAnswers == COUNT_CORRECT_ANSWERS) {
             System.out.printf(getSuccessMessage(), getPlayerName());
             gameOn = false;
         }
@@ -128,10 +118,6 @@ public class Engine {
 
     public static boolean isWin() {
         return getPlayerCountCorrectAnswers() == getCountCorrectAnswers();
-    }
-
-    public static void printDescription() {
-        System.out.printf(getRules());
     }
 
     public static boolean isGameOn() {
