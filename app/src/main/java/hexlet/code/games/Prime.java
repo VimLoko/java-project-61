@@ -2,38 +2,23 @@ package hexlet.code.games;
 
 import hexlet.code.Engine;
 
-public class Prime extends Engine {
+public class Prime {
 
-    public Prime() {
-        setRules("Answer 'yes' if given number is prime. Otherwise answer 'no'.\n");
-        greeting();
-    }
+    public static void play() {
+        System.out.print("Answer 'yes' if given number is prime. Otherwise answer 'no'.\n");
+        Engine.greeting();
 
-    @Override
-    protected void play() {
-        int countCorrectAnswer = 0;
-
-        while (true) {
-            int number = generateRandomNum(getStartRange(), getEndRange());
-            String isEvenStringNumber = getIsPrimeStringAnswer(isPrime(number));
-            System.out.printf(getQuestionMessage(), number);
-            System.out.printf(getAnswerMessage());
-            String playerAnswer = getScanner().nextLine();
-            if (playerAnswer.equals(isEvenStringNumber)) {
-                countCorrectAnswer++;
-                System.out.printf(getCorrectMessage());
-                if (countCorrectAnswer == getCountCorrectAnswers()) {
-                    System.out.printf(getSuccessMessage(), getPlayerName());
-                    break;
-                }
-            } else {
-                System.out.printf(getError(), playerAnswer, isEvenStringNumber, getPlayerName());
-                break;
-            }
+        while (!Engine.isWin() && Engine.isGameOn()) {
+            int number = Engine.generateRandomNum(Engine.getStartRange(), Engine.getEndRange());
+            String isPrimeStringNumber = getIsPrimeStringAnswer(isPrime(number));
+            Engine.askQuestion(String.valueOf(number));
+            Engine.askAnswer();
+            String playerAnswer = Engine.getScanner().nextLine();
+            Engine.checkAnswer(playerAnswer, isPrimeStringNumber);
         }
     }
 
-    private boolean isPrime(int num) {
+    private static boolean isPrime(int num) {
         if (num < 2) {
             return false;
         }
@@ -45,7 +30,7 @@ public class Prime extends Engine {
         return true;
     }
 
-    private String getIsPrimeStringAnswer(boolean isPrime) {
+    private static String getIsPrimeStringAnswer(boolean isPrime) {
         return isPrime ? "yes" : "no";
     }
 }

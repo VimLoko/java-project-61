@@ -2,49 +2,35 @@ package hexlet.code.games;
 
 import hexlet.code.Engine;
 
-public class Progression extends Engine {
-    private final int progressionLength = 10;
+public class Progression {
+    private static final int PROGRESSION_LENGTH = 10;
 
-    public Progression() {
-        setRules("What number is missing in the progression?\n");
-        greeting();
-    }
-    @Override
-    protected void play() {
-        int countCorrectAnswer = 0;
+    public static void play() {
+        System.out.print("What number is missing in the progression?\n");
+        Engine.greeting();
 
-        while (true) {
-            int startProgression = generateRandomNum(getStartRange(), getEndRange());
-            int stepProgression = generateRandomNum(getStartRange(), getEndRange());
+        while (!Engine.isWin() && Engine.isGameOn()) {
+            int startProgression = Engine.generateRandomNum(Engine.getStartRange(), Engine.getEndRange());
+            int stepProgression = Engine.generateRandomNum(Engine.getStartRange(), Engine.getEndRange());
             int[] progression = generateProgression(startProgression, stepProgression);
-            int hiddenElementIndex = generateRandomNum(getStartRange(), progression.length - 1);
+            int hiddenElementIndex = Engine.generateRandomNum(Engine.getStartRange(), progression.length - 1);
             int hiddenElementValue = progression[hiddenElementIndex];
-            System.out.printf(getQuestionMessage(), printProgression(progression, hiddenElementIndex));
-            System.out.printf(getAnswerMessage());
-            int playerAnswer = getScanner().nextInt();
-            if (playerAnswer == hiddenElementValue) {
-                countCorrectAnswer++;
-                System.out.printf(getCorrectMessage());
-                if (countCorrectAnswer == getCountCorrectAnswers()) {
-                    System.out.printf(getSuccessMessage(), getPlayerName());
-                    break;
-                }
-            } else {
-                System.out.printf(getError(), playerAnswer, hiddenElementValue, getPlayerName());
-                break;
-            }
+            Engine.askQuestion(printProgression(progression, hiddenElementIndex));
+            Engine.askAnswer();
+            int playerAnswer = Engine.getScanner().nextInt();
+            Engine.checkAnswer(playerAnswer, hiddenElementValue);
         }
     }
 
-    private int[] generateProgression(int startProgression, int stepProgression) {
-        int[] result = new int[progressionLength];
+    private static int[] generateProgression(int startProgression, int stepProgression) {
+        int[] result = new int[PROGRESSION_LENGTH];
         for (int i = startProgression, j = 0; j < result.length; i += stepProgression, j++) {
             result[j] = i;
         }
         return result;
     }
 
-    private String printProgression(int[] progression, int hiddenElement) {
+    private static String printProgression(int[] progression, int hiddenElement) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < progression.length; i++) {
             if (i != hiddenElement) {

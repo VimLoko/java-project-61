@@ -17,7 +17,6 @@ public class App {
         final int gcd = 4;
         final int progression = 5;
         final int prime = 6;
-        Engine game = null;
         System.out.println("Please enter the game number and press Enter.");
         System.out.println("1 - Greet");
         System.out.println("2 - Even");
@@ -34,25 +33,22 @@ public class App {
                 Cli.greeting();
                 break;
             case even:
-                game = new Even();
+                Even.play();
                 break;
             case calc:
-                game = new Calc();
+                Calc.play();
                 break;
             case gcd:
-                game = new Gcd();
+                Gcd.play();
                 break;
             case progression:
-                game = new Progression();
+                Progression.play();
                 break;
             case prime:
-                game = new Prime();
+                Prime.play();
                 break;
             default: System.exit(0);
         }
 
-        if (game != null) {
-            game.play();
-        }
     }
 }

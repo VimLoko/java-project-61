@@ -2,49 +2,34 @@ package hexlet.code.games;
 
 import hexlet.code.Engine;
 
-public class Calc extends Engine {
-    private String[] operations = {"+", "-", "*"};
+public class Calc {
+    private static String[] operations = {"+", "-", "*"};
 
-    public Calc() {
-        setRules("What is the result of the expression?\n");
-        greeting();
-    }
+    public static void play() {
+        System.out.print("What is the result of the expression?\n");
+        Engine.greeting();
 
-    @Override
-    public void play() {
-        int countCorrectAnswer = 0;
-
-        while (true) {
-            int firstNum = generateRandomNum(getStartRange(), getEndRange());
-            int secondNum = generateRandomNum(getStartRange(), getEndRange());
+        while (!Engine.isWin() && Engine.isGameOn()) {
+            int firstNum = Engine.generateRandomNum(Engine.getStartRange(), Engine.getEndRange());
+            int secondNum = Engine.generateRandomNum(Engine.getStartRange(), Engine.getEndRange());
             String operation = getOperation();
             int result = calculate(firstNum, secondNum, operation);
-            System.out.printf(getQuestionMessage(), getStringView(firstNum, secondNum, operation));
-            System.out.printf(getAnswerMessage());
-            int playerAnswer = getScanner().nextInt();
-            if (playerAnswer == result) {
-                countCorrectAnswer++;
-                System.out.printf(getCorrectMessage());
-                if (countCorrectAnswer == getCountCorrectAnswers()) {
-                    System.out.printf(getSuccessMessage(), getPlayerName());
-                    break;
-                }
-            } else {
-                System.out.printf(getError(), playerAnswer, result, getPlayerName());
-                break;
-            }
+            Engine.askQuestion(getStringView(firstNum, secondNum, operation));
+            Engine.askAnswer();
+            int playerAnswer = Engine.getScanner().nextInt();
+            Engine.checkAnswer(playerAnswer, result);
         }
     }
 
-    private String getOperation() {
-        return operations[generateRandomNum(0, operations.length - 1)];
+    private static String getOperation() {
+        return operations[Engine.generateRandomNum(0, operations.length - 1)];
     }
 
-    private String getStringView(int firstNum, int secondNum, String operation) {
+    private static String getStringView(int firstNum, int secondNum, String operation) {
         return String.format("%d %s %d", firstNum, operation, secondNum);
     }
 
-    private int calculate(int firstNum, int secondNum, String operation) {
+    private static int calculate(int firstNum, int secondNum, String operation) {
         return switch (operation) {
             case "+" -> firstNum + secondNum;
             case "-" -> firstNum - secondNum;
